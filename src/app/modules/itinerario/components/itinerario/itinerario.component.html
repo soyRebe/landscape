@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="d-flex justify-content-between col-12 py-3 px-4 shadow-sm">
+    <h4 class="fw-bold">Itinerario</h4>
+    <button class="btn btn-blue text-white" (click)="openNuevaActividad(content)">
+      <i class="las la-plus-circle"></i>
+      Nueva actividad
+    </button>
+  </div>
+  <div class="col-12 py-3 px-4">
+    <div class="row" *ngIf="loading">
+      <div class="col-12 py-5 d-flex justify-content-center align-items-center">
+        <div class="text-center text-primary">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p>Cargando itinerario...</p>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!loading">
+      <div class="col-12 col-lg-3">
+        <div class="d-flex align-items-center my-3">
+          <i class="las la-2x la-inbox"></i>
+          <span class="fw-bold">Sin fecha asignada</span>
+          <span class="text-secondary ms-2">({{actividadesSinFecha.length}})</span>
+        </div>
+        <div *ngFor="let actividad of actividadesSinFecha" class="card border-0 shadow mb-2">
+          <app-activity-card
+            [title]="actividad.title"
+            [type]="actividad.type"
+            [startDate]="actividad.startDate"
+            [endDate]="actividad.endDate"
+            [status]="actividad.status"
+          ></app-activity-card>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3" *ngFor="let key of objectKeys(actividadesConFecha)">
+        <div class="d-flex align-items-center my-3">
+          <span class="fw-bold">{{ key }}</span>
+          <span class="text-secondary ms-2">({{actividadesConFecha[key].actividades?.length}})</span>
+        </div>
+        <div *ngFor="let actividad of actividadesConFecha[key].actividades" class="card border-0 shadow mb-2">
+          <app-activity-card
+            [title]="actividad.title"
+            [type]="actividad.type"
+            [startDate]="actividad.startDate"
+            [endDate]="actividad.endDate"
+            [status]="actividad.status"
+          ></app-activity-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-offcanvas>
+ <div class="offcanvas-header bg-blue mb-3 justify-content-start">
+    <button class="btn btn-link" type="button" aria-label="Close" (click)="offcanvas.dismiss('Cross click')">
+      <i class="las la-angle-right text-white"></i>
+    </button>
+    <h6 class="offcanvas-title text-white">Agregar nueva actividad</h6>
+  </div>
+  <div class="offcanvas-body">
+    <form class="row" [formGroup]="formNuevaActividad">
+      <div class="mb-4 col-12">
+        <label for="nombre" class="form-label fw-bold">Nombre de la actividad</label>
+        <input
+          [ngClass]="fActivity['nombre'] && fActivity['nombre'].touched && fActivity['nombre'].invalid ? 'is-invalid' : ''"
+          type="text" class="form-control" formControlName="nombre" id="nombre" aria-describedby="nombre"
+        />
+        <small *ngIf="fActivity['nombre'] && fActivity['nombre']?.touched && fActivity['nombre'].errors?.['required']" class="text-danger">
+          El nombre de la actividad es requerida
+        </small>
+      </div>
+      <div class="mb-4 col-12 col-md-6">
+        <label for="fechaInicio" class="form-label fw-bold">Fecha de inicio</label>
+        <input
+          [ngClass]="fActivity['fechaInicio'] && fActivity['fechaInicio'].touched && fActivity['fechaInicio'].invalid ? 'is-invalid' : ''"
+          type="date" class="form-control"  formControlName="fechaInicio" id="fechaInicio"
+        />
+        <small *ngIf="fActivity['fechaInicio'] && fActivity['fechaInicio'].touched && fActivity['fechaInicio'].errors?.['required']" class="text-danger">
+          La fecha de Inicio es requerida
+        </small>
+      </div>
+      <div class="mb-4 col-12 col-md-6">
+        <label for="fechaFinalizacion" class="form-label fw-bold">Fecha de finalizaci&oacute;n</label>
+        <input
+          [ngClass]="fActivity['fechaFinalizacion'] && fActivity['fechaFinalizacion'].touched && fActivity['fechaFinalizacion'].invalid ? 'is-invalid' : ''"
+          type="date" class="form-control" formControlName="fechaFinalizacion" id="fechaFinalizacion"
+        />
+        <small *ngIf="fActivity['fechaFinalizacion'] && fActivity['fechaFinalizacion']?.touched && fActivity['fechaFinalizacion'].errors?.['required']" class="text-danger">
+          La fecha de finalizaci&oacute;n es requerida
+        </small>
+      </div>
+    </form>
+  </div>
+  <div class="offcanvas-bottom">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-end align-items-end p-4">
+        <button type="submit" class="btn btn-link text-secondary text-decoration-none" (click)="offcanvas.close('Close click')">Cancelar</button>
+        <button type="submit" class="btn btn-blue text-white" [disabled]="formNuevaActividad.invalid" >Agregar</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

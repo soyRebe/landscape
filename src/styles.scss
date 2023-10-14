@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+.bg-blue {
+  background-color: #3154AD;
+}
+
+.btn-blue {
+  background-color: #3154AD;
+  &:hover {
+    background-color: #3154AD;
+  }
+  &:disabled {
+    background-color: rgba(49,84,173, 0.75);
+  }
+
+}
+
+.color-red {
+  color: #C5654F;
+}
+
+.bg-color-food {
+  background-color: #C5654F;
+}
+
+.bg-color-activity {
+  background-color: #4DCBC2;
+}
+
+.bg-color-party {
+  background-color: #9B5BC9;
+}
+
+.bg-in-progress {
+  background-color: #B8D6E7;
+  color:#6D99B8;
+}

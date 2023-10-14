@@ -1,0 +1,26 @@
+<div class="card-body d-flex align-items-center">
+  <ng-container [ngSwitch]="type">
+    <div *ngSwitchCase="'FOOD'" class="rounded-circle bg-color-food text-white me-2 p-2">
+      <i class="las la-2x la-utensils"></i>
+    </div>
+    <div *ngSwitchCase="'PARTY'" class="rounded-circle bg-color-party text-white me-2 p-2">
+      <i class="las la-2x la-glass-cheers"></i>
+    </div>
+    <div *ngSwitchCase="'ACTIVITY'" class="rounded-circle bg-color-activity text-white me-2 p-2">
+      <i class="las la-2x la-bus"></i>
+    </div>
+    <div *ngSwitchDefault class="rounded-circle bg-secondary text-white me-2 p-2">
+      <i class="las la-2x la-walking"></i>
+    </div>
+  </ng-container>
+  <div>
+    <h6 class="fw-bold">{{title}}</h6>
+    <span *ngIf="startDate && endDate" class="">{{startDate | date: 'hh:mm'}} - {{endDate | date: 'hh:mm'}}</span>
+    <div *ngIf="status === 'IN_PROGRESS'" class="badge bg-in-progress rounded-pill">
+      <i class="las la-circle"></i> En progreso
+    </div>
+    <div *ngIf="status === 'DONE'" class="badge bg-success rounded-pill">
+      <i class="las la-circle"></i> Realizada
+    </div>
+  </div>
+</div>
