@@ -26,11 +26,14 @@
         </div>
         <div *ngFor="let actividad of actividadesSinFecha" class="card border-0 shadow mb-2">
           <app-activity-card
+            [activityId]="actividad.activityId"
             [title]="actividad.title"
             [type]="actividad.type"
             [startDate]="actividad.startDate"
             [endDate]="actividad.endDate"
             [status]="actividad.status"
+            (eventEditarActividad)="editar($event)"
+            (eventEliminarActividad)="eliminarActividad($event)"
           ></app-activity-card>
         </div>
       </div>
@@ -41,11 +44,14 @@
         </div>
         <div *ngFor="let actividad of actividadesConFecha[key].actividades" class="card border-0 shadow mb-2">
           <app-activity-card
+            [activityId]="actividad.activityId"
             [title]="actividad.title"
             [type]="actividad.type"
             [startDate]="actividad.startDate"
             [endDate]="actividad.endDate"
             [status]="actividad.status"
+            (eventEditarActividad)="editar($event)"
+            (eventEliminarActividad)="eliminarActividad($event)"
           ></app-activity-card>
         </div>
       </div>
@@ -76,7 +82,7 @@
         <label for="fechaInicio" class="form-label fw-bold">Fecha de inicio</label>
         <input
           [ngClass]="fActivity['fechaInicio'] && fActivity['fechaInicio'].touched && fActivity['fechaInicio'].invalid ? 'is-invalid' : ''"
-          type="date" class="form-control"  formControlName="fechaInicio" id="fechaInicio"
+          type="datetime-local" class="form-control"  formControlName="fechaInicio" id="fechaInicio"
         />
         <small *ngIf="fActivity['fechaInicio'] && fActivity['fechaInicio'].touched && fActivity['fechaInicio'].errors?.['required']" class="text-danger">
           La fecha de Inicio es requerida
@@ -86,7 +92,7 @@
         <label for="fechaFinalizacion" class="form-label fw-bold">Fecha de finalizaci&oacute;n</label>
         <input
           [ngClass]="fActivity['fechaFinalizacion'] && fActivity['fechaFinalizacion'].touched && fActivity['fechaFinalizacion'].invalid ? 'is-invalid' : ''"
-          type="date" class="form-control" formControlName="fechaFinalizacion" id="fechaFinalizacion"
+          type="datetime-local" class="form-control" formControlName="fechaFinalizacion" id="fechaFinalizacion"
         />
         <small *ngIf="fActivity['fechaFinalizacion'] && fActivity['fechaFinalizacion']?.touched && fActivity['fechaFinalizacion'].errors?.['required']" class="text-danger">
           La fecha de finalizaci&oacute;n es requerida
@@ -98,7 +104,7 @@
     <div class="row">
       <div class="col-12 d-flex justify-content-end align-items-end p-4">
         <button type="submit" class="btn btn-link text-secondary text-decoration-none" (click)="offcanvas.close('Close click')">Cancelar</button>
-        <button type="submit" class="btn btn-blue text-white" [disabled]="formNuevaActividad.invalid" >Agregar</button>
+        <button type="submit" class="btn btn-blue text-white" [disabled]="formNuevaActividad.invalid" (click)="agregarNuevaActividad()">Agregar</button>
       </div>
     </div>
   </div>

@@ -1,3 +1,8 @@
+
+<div class="d-flex justify-content-end p-2">
+  <i class="las la-pencil-alt" (click)="editarActividad()"></i>
+  <i class="las la-trash-alt"(click)="eliminarActividad()"></i>
+</div>
 <div class="card-body d-flex align-items-center">
   <ng-container [ngSwitch]="type">
     <div *ngSwitchCase="'FOOD'" class="rounded-circle bg-color-food text-white me-2 p-2">
